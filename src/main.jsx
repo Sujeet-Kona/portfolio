@@ -140,7 +140,7 @@ function App() {
           {visible.map(p => <motion.article className={"project-card " + p.accent} key={p.id} {...reveal}>
             <div className="project-index"><span>{p.number}</span><span className="index-line" /></div>
             <div className="project-main"><div className="project-overline">{p.type}</div><h3>{p.name}</h3><p className="project-tagline">{p.tagline}</p><ProjectVisual type={p.visual} />{p.proof.length > 0 && <div className="proof-row">{p.proof.map(([v, l]) => <div className="proof" key={l}><strong>{v}</strong><span>{l}</span></div>)}</div>}<div className="stack-row">{p.stack.map(s => <span key={s}><TechIcon name={s}/>{s}</span>)}</div></div>
-            <div className="project-action"><button ref={triggerRef} onClick={() => setSelected(p)} className="round-arrow" aria-label={"View " + p.name + " details"}><ArrowUpRight /></button><a href={p.github} target="_blank" rel="noopener noreferrer">SOURCE CODE <ExternalLink size={12} /></a></div>
+            <div className="project-action"><button onClick={event => { triggerRef.current = event.currentTarget; setSelected(p); }} className="round-arrow" aria-label={"View " + p.name + " details"}><ArrowUpRight /></button><a href={p.github} target="_blank" rel="noopener noreferrer">SOURCE CODE <ExternalLink size={12} /></a></div>
           </motion.article>)}
           {visible.length === 0 && <p className="empty-state">No projects match that search. Try another project name or technology.</p>}
         </div>
