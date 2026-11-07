@@ -32,7 +32,7 @@ export const projects = [
       "Built a point-in-time feature pipeline over 590,540 transactions, with a locked 28-feature contract covering behavioral, categorical, and C/D feature families.",
       "Used chronological train/validation/test partitions and leakage controls that prevent same-timestamp or future transactions from entering historical features.",
       "Selected XGBoost with test Average Precision of 0.449254 and ROC-AUC of 0.865318 on the held-out historical dataset.",
-      "Applied isotonic calibration selected through forward-chaining validation; test Brier score decreased from 0.101228 to 0.024204 (approximately 76.1%).",
+      "Applied isotonic calibration selected through forward-chaining validation; test Brier score decreased from 0.101228 to 0.024204 (approximately 76.1%), while calibrated Average Precision was 0.438919 versus 0.449254 raw.",
       "Built a FastAPI scoring path that loads a frozen model artifact, applies ALLOW / REVIEW / BLOCK policy thresholds, returns TreeSHAP signals, and persists decisions to PostgreSQL."
     ],
     proof: [["0.449", "Test Average Precision"], ["0.865", "Test ROC-AUC"], ["76.1%", "Brier reduction"]],
@@ -54,7 +54,7 @@ export const projects = [
       "Fine-tuned Qwen2.5-0.5B with standard LoRA; the recorded adapter has 540,672 trainable parameters (about 0.109% of the base model).",
       "Built three controlled Prompt-v2 benchmark tracks and compared the adapted model against a train-only TF-IDF + LinearSVC baseline.",
       "Recorded 77.33% exact match on Track B versus 56.00% for the train-only TF-IDF + LinearSVC baseline, with 98.67% structured-output validity; Track C scored only 37.33% exact match and exposes a generalization weakness.",
-      "Added reproducible experiment metadata, split audits, MLflow tracking, adapter/merged-export verification, automated tests, and CI smoke checks; explicitly documented synthetic-task, single-device, and non-QLoRA limitations."
+      "Added reproducible experiment metadata, split audits, MLflow tracking, adapter/merged-export verification, automated tests, and CI smoke checks; documented Track A lexical-neighbour overlap, Track C generalization weakness, synthetic-task scope, single-device training, and the absence of QLoRA."
     ],
     proof: [["77.33%", "Track B exact match"], ["98.67%", "Structured validity"], ["3", "Benchmark tracks"]],
     stack: ["Python", "PyTorch", "Transformers", "TRL", "PEFT / LoRA", "FastAPI", "MLflow", "pytest", "GitHub Actions"],
