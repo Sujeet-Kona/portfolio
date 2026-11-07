@@ -10,11 +10,11 @@ export const projects = [
     highlights: [
       "Implemented PDF/DOCX ingestion, document versioning, explicit lifecycle states, retry handling, and stale-processing recovery.",
       "Built hybrid BM25 + Qdrant dense retrieval with Reciprocal Rank Fusion (RRF), followed by cross-encoder reranking and relevance filtering.",
-      "Achieved 93.33% Recall@5 and 100% Recall@10 on the documented 16-document benchmark corpus; these are retrieval metrics, not answer-accuracy measurements.",
+      "Evaluated retrieval on 60 labeled questions over 16 documents and 220 chunks; hybrid RRF achieved 93.33% Recall@5 and 100% Recall@10. These are retrieval metrics, not answer-accuracy measurements.",
       "Added tenant-scoped authorization across PostgreSQL and Qdrant, JWT refresh-token rotation/revocation, Argon2 password hashing, upload validation, and audit logging.",
-      "Implemented deterministic evidence-gated refusal, citation validation, and Server-Sent Events (SSE) response streaming using a local LLM runtime."
+      "Implemented deterministic evidence-gated refusal, citation validation, and Server-Sent Events (SSE) response streaming using a local LLM runtime; documented that the reranker did not improve aggregate MRR in the measured run."
     ],
-    proof: [["93.33%", "Recall@5"], ["100%", "Recall@10"], ["16", "Benchmark documents"]],
+    proof: [["93.33%", "Recall@5"], ["100%", "Recall@10"], ["60", "Labeled retrieval questions"]],
     stack: ["Python", "FastAPI", "PostgreSQL", "Qdrant", "BM25", "BGE-M3", "Cross-Encoder", "Ollama", "Docker", "pytest"],
     github: "https://github.com/Sujeet-Kona/NEXORA",
     accent: "red",
@@ -53,8 +53,8 @@ export const projects = [
       "Implemented configuration validation, JSONL dataset checks, supervised fine-tuning, held-out evaluation, adapter export/reload checks, and FastAPI inference.",
       "Fine-tuned Qwen2.5-0.5B with standard LoRA; the recorded adapter has 540,672 trainable parameters (about 0.109% of the base model).",
       "Built three controlled Prompt-v2 benchmark tracks and compared the adapted model against a train-only TF-IDF + LinearSVC baseline.",
-      "Recorded 77.33% exact match on Track B versus 56.00% for the baseline, with 98.67% structured-output validity; Track C exposes a generalization weakness.",
-      "Added reproducible experiment metadata, split audits, MLflow tracking, adapter/merged-export verification, automated tests, and CI smoke checks."
+      "Recorded 77.33% exact match on Track B versus 56.00% for the train-only TF-IDF + LinearSVC baseline, with 98.67% structured-output validity; Track C scored only 37.33% exact match and exposes a generalization weakness.",
+      "Added reproducible experiment metadata, split audits, MLflow tracking, adapter/merged-export verification, automated tests, and CI smoke checks; explicitly documented synthetic-task, single-device, and non-QLoRA limitations."
     ],
     proof: [["77.33%", "Track B exact match"], ["98.67%", "Structured validity"], ["3", "Benchmark tracks"]],
     stack: ["Python", "PyTorch", "Transformers", "TRL", "PEFT / LoRA", "FastAPI", "MLflow", "pytest", "GitHub Actions"],
