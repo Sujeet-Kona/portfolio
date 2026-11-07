@@ -24,7 +24,11 @@ const technologyIcons = {
   "Dense & Hybrid Retrieval": Network, "Reciprocal Rank Fusion": GitMerge,
   "Cross-Encoder Reranking": ListFilter, "RAG": FileSearch, "Docker": Package,
   "Ollama": Bot, "Git": GitBranch, "GitHub": Github, "pytest": FlaskConical,
-  "Ruff": ShieldCheck
+  "Ruff": ShieldCheck, "BGE-M3": Brain, "Cross-Encoder": ListFilter, "SQLite": Database, "JWT": ShieldCheck,
+  "Uvicorn": Server, "OpenAI API": Bot, "JSON": FileCode2, "Streamlit": Workflow, "LangChain": Workflow,
+  "Google Gemini API": BrainCircuit, "FinQA": BarChart3, "Dataset Validation": ShieldCheck,
+  "Program Parsing": FileCode2, "Deterministic Execution": Gauge, "Matplotlib": BarChart3,
+  "Plotly": LineChart, "Jupyter Notebook": FileCode2, "Seaborn": BarChart3
 };
 function TechIcon({ name }) {
   const Icon = technologyIcons[name] || Code2;
