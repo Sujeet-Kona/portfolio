@@ -3,3 +3,56 @@
 @media(max-width:620px){.section-wrap,.topbar{width:calc(100% - 36px)}.topbar{height:68px}.nav{display:none;position:absolute;top:67px;left:-18px;right:-18px;padding:22px 18px;background:#100e0e;border-bottom:1px solid var(--line);flex-direction:column;gap:20px}.nav.nav-open{display:flex}.nav a{font-size:11px}.top-cta{display:none}.menu-toggle{display:block;padding:6px}.motion-toggle{font-size:8px}.hero{min-height:665px;padding-top:72px}.hero-orbit{opacity:.55}.orbit-one{width:310px;height:310px;right:-130px;top:190px}.orbit-two{width:230px;height:230px;right:-90px;top:230px}.eyebrow{font-size:8px}.eyebrow-year{margin-left:5px}.hero-kicker{font-size:8px;margin-top:46px}.hero h1{font-size:clamp(100px,24vw,150px)}.hero-bottom{margin-top:38px}.hero-role{font-size:8px;line-height:1.8}.hero-intro{font-size:12px;max-width:420px}.hero-links{gap:17px;flex-wrap:wrap}.hero-meta{font-size:8px;gap:12px 18px;margin-top:40px}.availability{width:100%}.scroll-cue{display:none}.strip-inner{min-height:135px;gap:17px}.strip-inner .mono-label{font-size:8px;white-space:nowrap}.strip-inner p{font-size:19px}.strip-symbol{font-size:27px}.section-heading{display:block;margin-bottom:35px}.section-aside{margin-top:24px}.section-heading h2,.about-grid h2,.open-grid h2{font-size:clamp(58px,15vw,82px)}.contact-section h2{font-size:clamp(66px,16vw,88px)}.project-controls{display:block}.filters{margin-bottom:12px}.filter{font-size:9px;padding:8px}.project-search{min-width:0;width:100%}.project-card{grid-template-columns:25px 1fr;gap:10px;padding:30px 0}.project-index{font-size:9px}.index-line{width:10px}.project-main h3{font-size:55px}.project-tagline{font-size:12px}.project-action{grid-column:2;flex-direction:row;align-items:center;margin-top:12px}.project-action>a{font-size:8px}.visual{height:165px;padding:13px;margin-top:20px}.visual-node{left:14px;top:15px}.visual-branches{left:14px;top:66px}.visual-fusion{left:145px;top:66px}.visual-rank{left:205px;top:66px}.visual-cite{left:14px;right:14px;bottom:14px;font-size:7px}.visual-risk{gap:25px;padding-left:20px}.risk-score strong{font-size:48px}.risk-bars{gap:5px}.risk-bars i{width:9px}.risk-decision{font-size:7px;right:10px}.visual-finetune{gap:8px}.fine-base,.fine-adapter{padding:7px;font-size:7px}.fine-chips{display:none}.fine-output{left:13px;right:13px;bottom:13px;font-size:7px}.proof-row{gap:0;margin:20px 0}.proof{padding-right:9px;margin-right:9px}.proof strong{font-size:22px}.proof span{font-size:7px}.about-grid,.open-grid,.contact-section{grid-template-columns:1fr;gap:32px}.about-section{padding:78px 0}.about-copy{padding:0}.about-copy .about-lead{font-size:22px}.about-facts{gap:25px}.stack-section{padding-top:85px;padding-bottom:85px}.skill-group{grid-template-columns:35px 1fr;gap:10px}.skill-group h3{font-size:22px}.skill-tags span{font-size:8px;padding:7px 8px}.open-source{padding:78px 0}.oss-content{padding:0}.contact-section{padding-top:85px;padding-bottom:85px}.contact-side{margin-top:10px}.footer{padding:22px 0;min-height:unset;flex-wrap:wrap}.footer>span:nth-child(2){display:none}.project-modal{padding:32px 23px}.project-modal h2{font-size:52px}}
 @media(max-width:370px){.section-wrap,.topbar{width:calc(100% - 28px)}.hero h1{font-size:clamp(88px,23vw,110px)}.hero-links .button{padding:13px 12px;gap:10px}.proof strong{font-size:19px}.proof{padding-right:7px;margin-right:7px}.project-main h3{font-size:48px}.visual-fusion{left:125px}.visual-rank{left:180px}.risk-bars{gap:4px}.risk-bars i{width:7px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* Refined typography + premium blue accent: visual structure intentionally unchanged */
+:root{--accent:#4f8cff;--accent-soft:#91baff}
+.mark{border-color:#31558a;color:var(--accent)}
+.nav a:hover,.text-link:hover,.top-cta:hover{color:var(--accent)}
+.top-cta,.filter.active,.round-arrow,.project-modal,.modal-close{border-color:#31558a}
+.filter.active{color:#9bc0ff;background:#101a2b}
+.visual:after{background:linear-gradient(120deg,transparent 35%,#4f8cff0c 100%)}
+.visual-node,.visual-fusion,.fine-adapter{border-color:#426eaa;color:#91baff}
+.risk-bars i{background:#315b91}
+.risk-decision span,.fine-output b,.project-modal h3{color:var(--accent)}
+.oss-link{color:#91baff}
+.about-script{color:#91baff}
+.stack-row span svg,.skill-tags span svg,.contact-side a svg{color:var(--accent)}
+.hero-period,.hero-kicker span,.hero-role span,.strip-inner p em,.strip-symbol,.section-heading h2 em,.about-grid h2 em,.open-grid h2 em,.contact-section h2 em{color:var(--accent)}
+.eyebrow-line,.button-primary{background:var(--accent)}
+.button-primary:hover{background:#3978df}
+.round-arrow{color:var(--accent)}
+.round-arrow:hover{background:var(--accent)}
+.project-index,.skill-number{color:var(--accent)}
+.project-overline{color:#b4c9e8}
+.project-action>a:hover,.oss-link:hover,.contact-side a:hover{color:#91baff}
+.modal-proof strong{color:#eaf2ff}
+.project-modal h3{color:#91baff}
+.modal-close:hover{border-color:var(--accent);color:#91baff}
+.project-card .index-line{background:#426eaa}
+.about-facts svg{color:var(--accent)}
+.contact-side a svg{color:var(--accent)}
+/* Slightly tighter reading scale while preserving display typography and layout */
+.hero-intro{font-size:13px}
+.section-aside{font-size:11px}
+.project-tagline{font-size:12px}
+.about-copy p{font-size:12px}
+.about-copy .about-lead{font-size:23px}
+.contact-copy{font-size:12px}
+.oss-content p{font-size:13px}
+.modal-desc{font-size:12px}
+.project-modal ul{font-size:11px}
+.stack-row span,.skill-tags span{font-size:8px}
+.filter{font-size:9px}
+.project-search input{font-size:9px}
+.top-cta{font-size:10px}
+.text-link{font-size:10px}
+.button{font-size:9px}
+.project-overline,.project-action>a,.skill-number,.oss-meta,.contact-side a,.footer>span,.scroll-cue{font-size:9px}
+.skill-group h3{font-size:23px}
+@media(max-width:620px){
+.hero-intro{font-size:11px}
+.project-tagline,.about-copy p,.contact-copy{font-size:11px}
+.about-copy .about-lead{font-size:20px}
+.oss-content p{font-size:12px}
+.stack-row span,.skill-tags span{font-size:7.5px}
+}
