@@ -147,7 +147,7 @@ function App() {
       </section>
 
       <section className="about-section" id="about"><div className="section-wrap about-grid">
-        <motion.div {...reveal}><span className="mono-label">03 / ABOUT</span><h2>BUILT ON<br /><em>CURIOSITY.</em></h2><p className="about-script">Always learning. Always building.</p></motion.div>
+        <motion.div {...reveal}><span className="mono-label">03 / ABOUT</span><h2>BUILT ON<br /><em>CURIOSITY.</em></h2><p className="about-script">Always learning. Always building.</p><img src="/images/profile.jpg" alt="Portrait of Sujeet Kona" loading="lazy" decoding="async" style={{ display: "block", width: "min(320px, 78vw)", aspectRatio: "1536 / 1314", objectFit: "contain", marginTop: "28px", borderRadius: "50%", border: "1px solid #31558a", boxShadow: "0 18px 55px #0009" }} /></motion.div>
         <motion.div className="about-copy" {...reveal}><p className="about-lead">{site.about}</p><p>My engineering approach is simple: understand the fundamentals, make assumptions explicit, test the behavior, and improve what the evidence says is weak. I prefer clear interfaces and maintainable systems over unnecessary complexity.</p><p>Currently pursuing {site.education.degree} at {site.education.institution}, with graduation expected in 2028.</p><div className="about-facts"><div><GraduationCap /><span>EDUCATION</span><strong>B.Tech · ECE</strong></div><div><Code2 /><span>WORKING STYLE</span><strong>Build · Test · Iterate</strong></div></div></motion.div>
       </div></section>
 
