@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, ArrowDownRight, ArrowUpRight, Github, Linkedin, Mail, Menu, X, ExternalLink, Code2, Database, GraduationCap, Terminal, Search, Cpu, Workflow, GitPullRequest, Send } from "lucide-react";
+import { ArrowDown, ArrowDownRight, ArrowUpRight, Github, Linkedin, Mail, Menu, X, ExternalLink, Code2, Database, GraduationCap, Terminal, Search, Cpu, Workflow, GitPullRequest, Send, FileCode2, Server, GitBranch, Radio, BrainCircuit, BarChart3, LineChart, Table, Sigma, Brain, Network, SlidersHorizontal, Gauge, GitMerge, ListFilter, FileSearch, Package, Bot, FlaskConical, ShieldCheck, Zap } from "lucide-react";
 import { site } from "./config/site.js";
 import { projects } from "./data/projects.js";
 import "./styles.css";
@@ -14,6 +14,22 @@ const skills = [
   { label: "Retrieval & Search", items: ["BM25", "Dense & Hybrid Retrieval", "Reciprocal Rank Fusion", "Cross-Encoder Reranking", "RAG"] },
   { label: "Tools & Quality", items: ["Docker", "Ollama", "Git", "GitHub", "pytest", "Ruff"] }
 ];
+const technologyIcons = {
+  "Python": FileCode2, "C": Code2, "SQL": Database, "FastAPI": Server, "REST APIs": Workflow,
+  "PostgreSQL": Database, "SQLAlchemy": Database, "Alembic": GitBranch, "Qdrant": Database,
+  "Redis": Zap, "WebSockets": Radio, "PyTorch": BrainCircuit, "Scikit-learn": BarChart3,
+  "XGBoost": GitBranch, "SHAP": LineChart, "Pandas": Table, "NumPy": Sigma,
+  "Hugging Face Transformers": Brain, "Transformers": Network, "PEFT / LoRA": SlidersHorizontal,
+  "TRL": Workflow, "Fine-tuning": SlidersHorizontal, "LLM Evaluation": Gauge, "BM25": Search,
+  "Dense & Hybrid Retrieval": Network, "Reciprocal Rank Fusion": GitMerge,
+  "Cross-Encoder Reranking": ListFilter, "RAG": FileSearch, "Docker": Package,
+  "Ollama": Bot, "Git": GitBranch, "GitHub": Github, "pytest": FlaskConical,
+  "Ruff": ShieldCheck
+};
+function TechIcon({ name }) {
+  const Icon = technologyIcons[name] || Code2;
+  return <Icon size={14} strokeWidth={1.7} aria-hidden="true" />;
+}
 const categories = ["All", "AI Systems", "Machine Learning", "LLM Engineering"];
 
 function ProjectVisual({ type }) {
@@ -79,15 +95,15 @@ function App() {
       <section className="intro-strip"><div className="section-wrap strip-inner"><span className="mono-label">01 / APPROACH</span><p>Fundamentals first. <em>Evidence over assumptions.</em><br className="desktop-break" /> Build, measure, debug, and improve.</p><span className="strip-symbol">↘</span></div></section>
 
       <section className="work-section section-wrap" id="work">
-        <motion.div className="section-heading" {...reveal}><div><span className="mono-label">02 / SELECTED WORK</span><h2>SELECTED<br /><em>ENGINEERING.</em></h2></div><p className="section-aside">Three substantial projects across retrieval systems, fraud risk, and LLM fine-tuning. Built to explore real engineering constraints—not just demos.</p></motion.div>
+        <motion.div className="section-heading" {...reveal}><div><span className="mono-label">02 / SELECTED WORK</span><h2>SELECTED<br /><em>ENGINEERING.</em></h2></div><p className="section-aside">A collection of ten projects spanning retrieval systems, fraud risk, LLM engineering, backend APIs, and applied data science.</p></motion.div>
         <div className="project-controls">
-          <div className="filters" role="group" aria-label="Filter projects">{categories.map(c => <button key={c} className={active === c ? "filter active" : "filter"} onClick={() => setActive(c)} aria-pressed={active === c}>{c}<span>{c === "All" ? "03" : String(projects.filter(p => p.category === c).length).padStart(2, "0")}</span></button>)}</div>
+          <div className="filters" role="group" aria-label="Filter projects">{categories.map(c => <button key={c} className={active === c ? "filter active" : "filter"} onClick={() => setActive(c)} aria-pressed={active === c}>{c}<span>{c === "All" ? String(projects.length).padStart(2, "0") : String(projects.filter(p => p.category === c).length).padStart(2, "0")}</span></button>)}</div>
           <label className="project-search"><Search size={14} /><input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search projects or tools" aria-label="Search projects or tools" /></label>
         </div>
         <div className="project-list">
           {visible.map(p => <motion.article className={"project-card " + p.accent} key={p.id} {...reveal}>
             <div className="project-index"><span>{p.number}</span><span className="index-line" /></div>
-            <div className="project-main"><div className="project-overline">{p.type}</div><h3>{p.name}</h3><p className="project-tagline">{p.tagline}</p><ProjectVisual type={p.visual} /><div className="proof-row">{p.proof.map(([v, l]) => <div className="proof" key={l}><strong>{v}</strong><span>{l}</span></div>)}</div><div className="stack-row">{p.stack.map(s => <span key={s}>{s}</span>)}</div></div>
+            <div className="project-main"><div className="project-overline">{p.type}</div><h3>{p.name}</h3><p className="project-tagline">{p.tagline}</p><ProjectVisual type={p.visual} />{p.proof.length > 0 && <div className="proof-row">{p.proof.map(([v, l]) => <div className="proof" key={l}><strong>{v}</strong><span>{l}</span></div>)}</div>}<div className="stack-row">{p.stack.map(s => <span key={s}><TechIcon name={s}/>{s}</span>)}</div></div>
             <div className="project-action"><button onClick={() => setSelected(p)} className="round-arrow" aria-label={"View " + p.name + " details"}><ArrowUpRight /></button><a href={p.github} target="_blank" rel="noopener noreferrer">SOURCE CODE <ExternalLink size={12} /></a></div>
           </motion.article>)}
           {visible.length === 0 && <p className="empty-state">No projects match that search. Try another project name or technology.</p>}
@@ -101,7 +117,7 @@ function App() {
 
       <section className="stack-section section-wrap" id="toolkit">
         <motion.div className="section-heading stack-heading" {...reveal}><div><span className="mono-label">04 / TECHNICAL TOOLKIT</span><h2>TOOLS FOR<br /><em>THE WORK.</em></h2></div><p className="section-aside">A practical toolkit shaped by the systems I've built and the problems I've worked through.</p></motion.div>
-        <div className="skills-grid">{skills.map((g, i) => <motion.div className="skill-group" key={g.label} {...reveal}><span className="skill-number">0{i + 1}</span><div><h3>{g.label}</h3><div className="skill-tags">{g.items.map(s => <span key={s}>{s}</span>)}</div></div></motion.div>)}</div>
+        <div className="skills-grid">{skills.map((g, i) => <motion.div className="skill-group" key={g.label} {...reveal}><span className="skill-number">0{i + 1}</span><div><h3>{g.label}</h3><div className="skill-tags">{g.items.map(s => <span key={s}><TechIcon name={s}/>{s}</span>)}</div></div></motion.div>)}</div>
       </section>
 
       <section className="open-source"><div className="section-wrap open-grid"><div><span className="mono-label">05 / OPEN SOURCE</span><h2>CONTRIBUTE.<br /><em>COLLABORATE.</em></h2></div><div className="oss-content"><p>Contributed vector-name validation to the local collection implementation in the Qdrant Python client, with regression coverage for retrieval and query operations.</p><a href="https://github.com/qdrant/qdrant-client/pull/1653" target="_blank" rel="noopener noreferrer" className="oss-link">VIEW PULL REQUEST <ArrowUpRight size={15} /></a><div className="oss-meta"><span>QDRANT CLIENT</span><span>PYTHON · PYTEST</span><span>8 TESTS PASSED LOCALLY</span></div></div></div></section>
@@ -116,7 +132,7 @@ function App() {
     </main>
     <footer className="footer section-wrap"><a className="wordmark" href="#top"><span className="mark">SK</span><span>SUJEET KONA<span className="wordmark-dot">.</span></span></a><span>DESIGNED WITH INTENT. BUILT WITH CARE.</span><span>© {new Date().getFullYear()} SUJEET KONA</span></footer>
 
-    <AnimatePresence>{selected && <motion.div className="modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onMouseDown={e => { if (e.target === e.currentTarget) setSelected(null); }}><motion.div className="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 16 }}><button className="modal-close" onClick={() => setSelected(null)} aria-label="Close details"><X /></button><span className="mono-label">{selected.number} / PROJECT DETAIL</span><h2 id="modal-title">{selected.name}</h2><p className="modal-desc">{selected.description}</p><h3>ENGINEERING NOTES</h3><ul>{selected.highlights.map(x => <li key={x}>{x}</li>)}</ul><h3>MEASURED OUTCOMES</h3><div className="modal-proof">{selected.proof.map(([v, l]) => <div key={l}><strong>{v}</strong><span>{l}</span></div>)}</div><h3>TECHNOLOGY</h3><div className="stack-row">{selected.stack.map(s => <span key={s}>{s}</span>)}</div><a className="button button-primary modal-link" href={selected.github} target="_blank" rel="noopener noreferrer">Explore repository <ArrowUpRight size={15} /></a></motion.div></motion.div>}</AnimatePresence>
+    <AnimatePresence>{selected && <motion.div className="modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onMouseDown={e => { if (e.target === e.currentTarget) setSelected(null); }}><motion.div className="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 16 }}><button className="modal-close" onClick={() => setSelected(null)} aria-label="Close details"><X /></button><span className="mono-label">{selected.number} / PROJECT DETAIL</span><h2 id="modal-title">{selected.name}</h2><p className="modal-desc">{selected.description}</p><h3>ENGINEERING NOTES</h3><ul>{selected.highlights.map(x => <li key={x}>{x}</li>)}</ul>{selected.proof.length > 0 && <><h3>MEASURED OUTCOMES</h3><div className="modal-proof">{selected.proof.map(([v, l]) => <div key={l}><strong>{v}</strong><span>{l}</span></div>)}</div></>}<h3>TECHNOLOGY</h3><div className="stack-row">{selected.stack.map(s => <span key={s}><TechIcon name={s}/>{s}</span>)}</div><a className="button button-primary modal-link" href={selected.github} target="_blank" rel="noopener noreferrer">Explore repository <ArrowUpRight size={15} /></a></motion.div></motion.div>}</AnimatePresence>
   </div>;
 }
 createRoot(document.getElementById("root")).render(<React.StrictMode><App /></React.StrictMode>);
