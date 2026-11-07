@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, ArrowDownRight, ArrowUpRight, Github, Linkedin, Mail, Menu, X, ExternalLink, Code2, Database, GraduationCap, Terminal, Search, Cpu, Workflow, GitPullRequest, Send, FileCode2, Server, GitBranch, Radio, BrainCircuit, BarChart3, LineChart, Table, Sigma, Brain, Network, SlidersHorizontal, Gauge, GitMerge, ListFilter, FileSearch, Package, Bot, FlaskConical, ShieldCheck, Zap } from "lucide-react";
@@ -48,6 +48,8 @@ function App() {
   const [selected, setSelected] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [motionOn, setMotionOn] = useState(true);
+  const dialogRef = useRef(null);
+  const triggerRef = useRef(null);
   const reduce = useReducedMotion();
   const visible = useMemo(() => projects.filter(p => (active === "All" || p.category === active) && (p.name + " " + p.tagline + " " + p.stack.join(" ")).toLowerCase().includes(search.toLowerCase())), [active, search]);
   const reveal = (!motionOn || reduce) ? {} : { initial: { opacity: 0, y: 22 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, amount: .12 }, transition: { duration: .65, ease: [.22, 1, .36, 1] } };
@@ -57,6 +59,36 @@ function App() {
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
+  useEffect(() => {
+    if (!selected) {
+      triggerRef.current?.focus();
+      return;
+    }
+    const dialog = dialogRef.current;
+    const focusable = () => [...(dialog?.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])') || [])];
+    focusable()[0]?.focus();
+    const onDialogKeyDown = event => {
+      if (event.key !== "Tab") return;
+      const items = focusable();
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    dialog?.addEventListener("keydown", onDialogKeyDown);
+    return () => {
+      dialog?.removeEventListener("keydown", onDialogKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [selected]);
   useEffect(() => { document.title = site.seo.title; }, []);
   useEffect(() => {
     const saved = window.localStorage.getItem("sujeet-kona-motion");
@@ -108,7 +140,7 @@ function App() {
           {visible.map(p => <motion.article className={"project-card " + p.accent} key={p.id} {...reveal}>
             <div className="project-index"><span>{p.number}</span><span className="index-line" /></div>
             <div className="project-main"><div className="project-overline">{p.type}</div><h3>{p.name}</h3><p className="project-tagline">{p.tagline}</p><ProjectVisual type={p.visual} />{p.proof.length > 0 && <div className="proof-row">{p.proof.map(([v, l]) => <div className="proof" key={l}><strong>{v}</strong><span>{l}</span></div>)}</div>}<div className="stack-row">{p.stack.map(s => <span key={s}><TechIcon name={s}/>{s}</span>)}</div></div>
-            <div className="project-action"><button onClick={() => setSelected(p)} className="round-arrow" aria-label={"View " + p.name + " details"}><ArrowUpRight /></button><a href={p.github} target="_blank" rel="noopener noreferrer">SOURCE CODE <ExternalLink size={12} /></a></div>
+            <div className="project-action"><button ref={triggerRef} onClick={() => setSelected(p)} className="round-arrow" aria-label={"View " + p.name + " details"}><ArrowUpRight /></button><a href={p.github} target="_blank" rel="noopener noreferrer">SOURCE CODE <ExternalLink size={12} /></a></div>
           </motion.article>)}
           {visible.length === 0 && <p className="empty-state">No projects match that search. Try another project name or technology.</p>}
         </div>
@@ -136,7 +168,7 @@ function App() {
     </main>
     <footer className="footer section-wrap"><a className="wordmark" href="#top"><span className="mark">SK</span><span>SUJEET KONA<span className="wordmark-dot">.</span></span></a><span>DESIGNED WITH INTENT. BUILT WITH CARE.</span><span>© {new Date().getFullYear()} SUJEET KONA</span></footer>
 
-    <AnimatePresence>{selected && <motion.div className="modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onMouseDown={e => { if (e.target === e.currentTarget) setSelected(null); }}><motion.div className="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 16 }}><button className="modal-close" onClick={() => setSelected(null)} aria-label="Close details"><X /></button><span className="mono-label">{selected.number} / PROJECT DETAIL</span><h2 id="modal-title">{selected.name}</h2><p className="modal-desc">{selected.description}</p><h3>ENGINEERING NOTES</h3><ul>{selected.highlights.map(x => <li key={x}>{x}</li>)}</ul>{selected.proof.length > 0 && <><h3>MEASURED OUTCOMES</h3><div className="modal-proof">{selected.proof.map(([v, l]) => <div key={l}><strong>{v}</strong><span>{l}</span></div>)}</div></>}<h3>TECHNOLOGY</h3><div className="stack-row">{selected.stack.map(s => <span key={s}><TechIcon name={s}/>{s}</span>)}</div><a className="button button-primary modal-link" href={selected.github} target="_blank" rel="noopener noreferrer">Explore repository <ArrowUpRight size={15} /></a></motion.div></motion.div>}</AnimatePresence>
+    <AnimatePresence>{selected && <motion.div className="modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onMouseDown={e => { if (e.target === e.currentTarget) setSelected(null); }}><motion.div ref={dialogRef} className="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 16 }}><button className="modal-close" onClick={() => setSelected(null)} aria-label="Close details"><X /></button><span className="mono-label">{selected.number} / PROJECT DETAIL</span><h2 id="modal-title">{selected.name}</h2><p className="modal-desc">{selected.description}</p><h3>ENGINEERING NOTES</h3><ul>{selected.highlights.map(x => <li key={x}>{x}</li>)}</ul>{selected.proof.length > 0 && <><h3>MEASURED OUTCOMES</h3><div className="modal-proof">{selected.proof.map(([v, l]) => <div key={l}><strong>{v}</strong><span>{l}</span></div>)}</div></>}<h3>TECHNOLOGY</h3><div className="stack-row">{selected.stack.map(s => <span key={s}><TechIcon name={s}/>{s}</span>)}</div><a className="button button-primary modal-link" href={selected.github} target="_blank" rel="noopener noreferrer">Explore repository <ArrowUpRight size={15} /></a></motion.div></motion.div>}</AnimatePresence>
   </div>;
 }
 createRoot(document.getElementById("root")).render(<React.StrictMode><App /></React.StrictMode>);
