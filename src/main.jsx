@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowDownRight, ArrowUpRight, Github, Linkedin, Mail, Menu, X, ExternalLink, Code2, Cpu, Database, Workflow, Terminal, GraduationCap, Award, ChevronRight, Sparkles, Sun, Moon } from "lucide-react";
@@ -53,6 +53,7 @@ function App(){
   const visible=useMemo(()=>active==="All"?projects:projects.filter(p=>p.category===active),[active]);
   const reveal=(!motionOn||reduce)?{}:{initial:{opacity:0,y:22},whileInView:{opacity:1,y:0},viewport:{once:true,amount:.16},transition:{duration:.65,ease:[.22,1,.36,1]}};
   const closeMenu=()=>setMobileOpen(false);
+  useEffect(()=>{const onKeyDown=(event)=>{if(event.key==="Escape"){setSelected(null);setMobileOpen(false);}};window.addEventListener("keydown",onKeyDown);return()=>window.removeEventListener("keydown",onKeyDown);},[]);
   return <div className="site-shell">
     <div className="grain" aria-hidden="true"/>
     <header className="topbar">
