@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowDown, ArrowDownRight, ArrowUpRight, Github, Linkedin, Mail, Menu, X, ExternalLink, Code2, Database, GraduationCap, Terminal, Search, Cpu, Workflow, GitPullRequest, Send, FileCode2, Server, GitBranch, Radio, BrainCircuit, BarChart3, LineChart, Table, Sigma, Brain, Network, SlidersHorizontal, Gauge, GitMerge, ListFilter, FileSearch, Package, Bot, FlaskConical, ShieldCheck, Zap } from "lucide-react";
+import { ArrowDown, ArrowDownRight, ArrowUpRight, Github, Linkedin, Mail, Menu, X, ExternalLink, Code2, Database, GraduationCap, Terminal, Search, Workflow, FileCode2, Server, GitBranch, Radio, BrainCircuit, BarChart3, LineChart, Table, Sigma, Brain, Network, SlidersHorizontal, Gauge, GitMerge, ListFilter, FileSearch, Package, Bot, FlaskConical, ShieldCheck, Zap } from "lucide-react";
 import { site } from "./config/site.js";
 import { projects } from "./data/projects.js";
 import "./styles.css";
@@ -131,7 +131,7 @@ function App() {
       <section className="intro-strip"><div className="section-wrap strip-inner"><span className="mono-label">01 / APPROACH</span><p>Fundamentals first. <em>Evidence over assumptions.</em><br className="desktop-break" /> Build, measure, debug, and improve.</p><span className="strip-symbol">↘</span></div></section>
 
       <section className="work-section section-wrap" id="work">
-        <motion.div className="section-heading" {...reveal}><div><span className="mono-label">02 / SELECTED WORK</span><h2>SELECTED<br /><em>ENGINEERING.</em></h2></div><p className="section-aside">A collection of ten projects spanning retrieval systems, fraud risk, LLM engineering, backend APIs, and applied data science.</p></motion.div>
+        <motion.div className="section-heading" {...reveal}><div><span className="mono-label">02 / SELECTED WORK</span><h2>SELECTED<br /><em>ENGINEERING.</em></h2></div><p className="section-aside">Three flagship projects spanning retrieval systems, fraud-risk decisioning, and reproducible LLM fine-tuning.</p></motion.div>
         <div className="project-controls">
           <div className="filters" role="group" aria-label="Filter projects">{categories.map(c => <button key={c} className={active === c ? "filter active" : "filter"} onClick={() => setActive(c)} aria-pressed={active === c}>{c}<span>{c === "All" ? String(projects.length).padStart(2, "0") : String(projects.filter(p => p.category === c).length).padStart(2, "0")}</span></button>)}</div>
           <label className="project-search"><Search size={14} /><input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search projects or tools" aria-label="Search projects or tools" /></label>
@@ -147,7 +147,7 @@ function App() {
       </section>
 
       <section className="about-section" id="about"><div className="section-wrap about-grid">
-        <motion.div {...reveal}><span className="mono-label">03 / ABOUT</span><h2>BUILT ON<br /><em>CURIOSITY.</em></h2><p className="about-script">Always learning. Always building.</p><img src="/images/profile.jpg" alt="Portrait of Sujeet Kona" loading="lazy" decoding="async" style={{ display: "block", width: "min(320px, 78vw)", aspectRatio: "1536 / 1314", objectFit: "contain", marginTop: "28px", borderRadius: "50%", border: "1px solid #31558a", boxShadow: "0 18px 55px #0009" }} /></motion.div>
+        <motion.div {...reveal}><span className="mono-label">03 / ABOUT</span><h2>BUILT ON<br /><em>CURIOSITY.</em></h2><p className="about-script">Always learning. Always building.</p><img className="profile-portrait" src="/images/profile.jpg" alt="Portrait of Sujeet Kona" width="1536" height="1314" loading="lazy" decoding="async" /></motion.div>
         <motion.div className="about-copy" {...reveal}><p className="about-lead">{site.about}</p><p>My engineering approach is simple: understand the fundamentals, make assumptions explicit, test the behavior, and improve what the evidence says is weak. I prefer clear interfaces and maintainable systems over unnecessary complexity.</p><p>Currently pursuing {site.education.degree} at {site.education.institution}, with graduation expected in 2028.</p><div className="about-facts"><div><GraduationCap /><span>EDUCATION</span><strong>B.Tech · ECE</strong></div><div><Code2 /><span>WORKING STYLE</span><strong>Build · Test · Iterate</strong></div></div></motion.div>
       </div></section>
 
