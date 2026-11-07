@@ -38,6 +38,13 @@ function App() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
   useEffect(() => { document.title = site.seo.title; }, []);
+  useEffect(() => {
+    const saved = window.localStorage.getItem("sujeet-kona-motion");
+    if (saved === "off" || saved === "on") setMotionOn(saved === "on");
+  }, []);
+  useEffect(() => {
+    window.localStorage.setItem("sujeet-kona-motion", motionOn ? "on" : "off");
+  }, [motionOn]);
 
   return <div className="site-shell" id="top">
     <div className="grain" aria-hidden="true" />
